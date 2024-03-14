@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "BarcodeScanner"
 include(":BarcodeScannerLibrary")
- 
+include(":BarcodeScannerApp")
