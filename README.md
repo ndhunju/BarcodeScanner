@@ -1,6 +1,15 @@
-# Barcode (and QR code) Scanner
+# Barcode (and QR code) Scanner - Android Library
 
-Light weight Android library that allows android app to add barcode and QR code scanning abilities.
+This is a light weight Android library that provides barcode and QR code scanning capabilities along
+with out-of-the-box UI.
+
+### Sample Android App?
+See [BarcodeScannerApp](https://github.com/ndhunju/BarcodeScanner/tree/master/BarcodeScannerApp)
+
+### How to add this library to your android app?
+See https://jitpack.io/#ndhunju/BarcodeScanner
+
+[![](https://jitpack.io/v/ndhunju/BarcodeScanner.svg)](https://jitpack.io/#ndhunju/BarcodeScanner)
 
 ### Screens
 Scroll horizontally to see more ➡️
