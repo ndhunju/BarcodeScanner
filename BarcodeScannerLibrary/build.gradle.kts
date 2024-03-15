@@ -1,4 +1,5 @@
 plugins {
+    `maven-publish`
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
 }
@@ -9,6 +10,13 @@ android {
 
     defaultConfig {
         minSdk = 24
+
+        aarMetadata {
+            // If your library contains manifest entries or resources that
+            // make use of newer platform attributes, you need to set this value
+            // https://developer.android.com/build/publish-library/prep-lib-release
+            minSdk = 24
+        }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -41,6 +49,33 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
+
+    // When publishing a library for others to consume, consider creating test fixtures for your API.
+    // https://developer.android.com/build/publish-library/prep-lib-release
+    testFixtures {
+        enable = true
+    }
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.ndhunju"
+            artifactId = "barcode-scanner"
+            version = "1.0"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+
+    }
 }
 
 dependencies {
@@ -65,12 +100,6 @@ dependencies {
     // For QR code scanning
     implementation("com.google.mlkit:barcode-scanning:17.2.0")
     implementation("com.google.mlkit:object-detection:17.0.1")
-
-    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
