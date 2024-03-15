@@ -43,11 +43,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 
     publishing {
@@ -72,6 +72,13 @@ publishing {
 
             afterEvaluate {
                 from(components["release"])
+            }
+        }
+
+        repositories {
+            maven {
+                name = "ndhunju"
+                url = uri("${project.buildDir}/repo")
             }
         }
 
