@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 /**
  * View model for handling application workflow based on camera preview.
  */
-class WorkflowModel : ViewModel() {
+internal class WorkflowModel : ViewModel() {
 
     val workflowState = MutableLiveData<WorkflowState>()
     val detectedBarcode = MutableLiveData<Barcode>()

@@ -60,7 +60,7 @@ abstract class BarcodeScannerActivity : FragmentActivity() {
     private fun onGraphicLayerInitialized(graphicOverlayView: GraphicOverlayView) {
         this.graphicOverlayView = graphicOverlayView
         setUpWorkflowModel(graphicOverlayView)
-        setWorkflowState(WorkflowState.DETECTING)
+        resumeScanner()
     }
 
     override fun onResume() {
@@ -107,8 +107,8 @@ abstract class BarcodeScannerActivity : FragmentActivity() {
         }
     }
 
-    fun setWorkflowState(state: WorkflowState) {
-        workflowModel.setWorkflowState(state)
+    fun resumeScanner() {
+        workflowModel.setWorkflowState(WorkflowState.DETECTING)
     }
 
     private fun startCameraPreview(graphicOverlayView: GraphicOverlayView) {

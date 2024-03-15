@@ -1,8 +1,10 @@
 package com.ndhunju.barcodescannerapp
 
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 
 class ViewModel: ViewModel() {
 
@@ -13,8 +15,10 @@ class ViewModel: ViewModel() {
             emit(false)
         }
 
-        // Make API call to get additional info on barcode
-        delay(3000)
+        withContext(Dispatchers.IO) {
+            // Make API call to get additional info on barcode
+            delay(3000)
+        }
 
         // Return the result
         emit(true)

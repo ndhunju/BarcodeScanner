@@ -20,7 +20,7 @@ import java.io.IOException
 /**
  * A processor to run the barcode detector.
  */
-class BarcodeFrameProcessor(
+internal class BarcodeFrameProcessor(
     private val graphicOverlayView: GraphicOverlayView,
     private val workflowModel: WorkflowModel
     ) : FrameProcessorBase<List<Barcode>>() {

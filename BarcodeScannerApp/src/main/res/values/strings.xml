@@ -6,9 +6,11 @@
     <!-- Description of a screen that allows user to scan barcode -->
     <string name="screen_demo_description">Place barcode code inside the area.</string>
     <!-- Shown in Text field when the app is processing a barcode -->
-    <string name="screen_demo_scanning">Scanning&#8230;</string>
+    <string name="screen_demo_processing">Processing&#8230;</string>
     <!-- Shown in Text field when the app has finished processing the barcode -->
     <string name="screen_demo_scan_complete">Scan complete</string>
     <!-- Error message shown in a Text field -->
     <string name="screen_demo_invalid_qr_code">Invalid QR code.</string>
+    <!-- |Text shown inside a Toast. Multiple lines possible-->
+    <string name="screen_demo_toast_msg_copied">Copied!</string>
 </resources>
