@@ -3,9 +3,9 @@ package com.ndhunju.barcodescanner.barcodedetection
 import android.graphics.Paint
 import androidx.core.graphics.toColorInt
 import com.ndhunju.barcodescanner.R
-import com.ndhunju.barcodescanner.camera.GraphicOverlay
+import com.ndhunju.barcodescanner.camera.GraphicOverlayView
 
-class SuccessBarcodeGraphic(overlay: GraphicOverlay) : BarcodeGraphicBase(overlay) {
+class SuccessBarcodeGraphic(overlay: GraphicOverlayView) : BarcodeGraphicBase(overlay) {
 
     override var boxBorderPaint: Paint = Paint().apply {
         color = "#6EDA78".toColorInt()

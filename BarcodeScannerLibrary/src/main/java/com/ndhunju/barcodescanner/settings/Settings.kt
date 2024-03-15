@@ -1,10 +1,10 @@
-package com.ndhunju.barcode.settings
+package com.ndhunju.barcodescanner.settings
 
 import android.graphics.RectF
 import com.google.android.gms.common.images.Size
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.ndhunju.barcodescanner.camera.CameraSizePair
-import com.ndhunju.barcodescanner.camera.GraphicOverlay
+import com.ndhunju.barcodescanner.camera.GraphicOverlayView
 
 /**
  * Class to store different settings that can be changed.
@@ -19,7 +19,7 @@ object Settings {
     private var reticleHeight = 35
 
     fun getProgressToMeetBarcodeSizeRequirement(
-        overlay: GraphicOverlay,
+        overlay: GraphicOverlayView,
         barcode: Barcode
     ): Float {
         return if (enableBarCodeSizeCheck) {
@@ -32,7 +32,7 @@ object Settings {
         }
     }
 
-    fun getBarcodeReticleBox(overlay: GraphicOverlay): RectF {
+    fun getBarcodeReticleBox(overlay: GraphicOverlayView): RectF {
         val overlayWidth = overlay.width.toFloat()
         val overlayHeight = overlay.height.toFloat()
         val boxWidth = overlayWidth * reticleWidth / 100

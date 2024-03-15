@@ -5,7 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Path
 import android.graphics.Point
 import android.graphics.PointF
-import com.ndhunju.barcodescanner.camera.GraphicOverlay
+import com.ndhunju.barcodescanner.camera.GraphicOverlayView
 import kotlin.math.abs
 
 /**
@@ -13,7 +13,7 @@ import kotlin.math.abs
  * in loading.
  */
 class LoadingBarcodeGraphic(
-    overlay: GraphicOverlay,
+    overlay: GraphicOverlayView,
     private val loadingAnimator: ValueAnimator
     ) : BarcodeGraphicBase(overlay) {
 

@@ -41,7 +41,7 @@ import com.ndhunju.barcodescanner.R
 import com.ndhunju.barcodescanner.camera.CameraSource
 import com.ndhunju.barcodescanner.camera.CameraSourcePreview
 import com.ndhunju.barcodescanner.camera.FrameProcessor
-import com.ndhunju.barcodescanner.camera.GraphicOverlay
+import com.ndhunju.barcodescanner.camera.GraphicOverlayView
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -51,7 +51,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun BarcodeScannerScreen(
     uiState: State<UiState> = MutableStateFlow(UiState()).collectAsState(),
-    onGraphicLayerInitialized: ((GraphicOverlay) -> Unit)? = null,
+    onGraphicLayerInitialized: ((GraphicOverlayView) -> Unit)? = null,
     onClickGraphicOverlay: (() -> Unit)? = null,
     onClickCloseIcon: (() -> Unit)? = null,
     onClickFlashIcon: (() -> Unit)? = null,
@@ -86,7 +86,7 @@ fun BarcodeScannerScreen(
 fun BarcodeScannerMainContent(
     modifier: Modifier,
     uiState: State<UiState> = MutableStateFlow(UiState()).collectAsState(),
-    onGraphicLayerInitialized: ((GraphicOverlay) -> Unit)? = null,
+    onGraphicLayerInitialized: ((GraphicOverlayView) -> Unit)? = null,
     onClickGraphicOverlay: (() -> Unit)? = null,
     onClickCloseIcon: (() -> Unit)? = null,
     onClickFlashIcon: (() -> Unit)? = null,
@@ -136,7 +136,7 @@ private fun CameraSourcePreview(
     modifier: Modifier,
     cameraSource: State<CameraSource?>,
     promptText: State<String?>,
-    onGraphicLayerInitialized: ((GraphicOverlay) -> Unit)?,
+    onGraphicLayerInitialized: ((GraphicOverlayView) -> Unit)?,
     onClickGraphicOverlay: (() -> Unit)? = null,
 ) {
     AndroidView(
@@ -153,14 +153,14 @@ private fun CameraSourcePreview(
                     this
                 )
 
-                val graphicOverlay = findViewById<GraphicOverlay>(
+                val graphicOverlayView = findViewById<GraphicOverlayView>(
                     R.id.camera_preview_graphic_overlay
                 )
 
-                graphicOverlay.setOnClickListener {
+                graphicOverlayView.setOnClickListener {
                     onClickGraphicOverlay?.invoke()
                 }
-                onGraphicLayerInitialized?.invoke(graphicOverlay)
+                onGraphicLayerInitialized?.invoke(graphicOverlayView)
             }
         },
         update = { cameraSourcePreview ->

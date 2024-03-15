@@ -5,17 +5,16 @@ import android.graphics.Paint
 import android.graphics.Paint.Style
 import android.graphics.RectF
 import androidx.core.content.ContextCompat
-import com.ndhunju.barcodescanner.camera.GraphicOverlay
+import com.ndhunju.barcodescanner.camera.GraphicOverlayView
 import com.ndhunju.barcodescanner.R
 import com.ndhunju.barcodescanner.camera.CameraReticleAnimator
-import com.ndhunju.barcodescanner.barcodedetection.BarcodeGraphicBase
 
 /**
  * A camera reticle that locates at the center of canvas to indicate the system is active
  * but has not detected a barcode yet.
  */
 class BarcodeReticleGraphic(
-    overlay: GraphicOverlay,
+    overlay: GraphicOverlayView,
     private val animator: CameraReticleAnimator
     ) : BarcodeGraphicBase(overlay) {
 

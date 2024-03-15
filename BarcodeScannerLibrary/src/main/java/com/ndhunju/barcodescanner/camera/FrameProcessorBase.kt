@@ -34,17 +34,17 @@ abstract class FrameProcessorBase<T> : FrameProcessor {
     override fun process(
         data: ByteBuffer,
         frameMetadata: FrameMetadata,
-        graphicOverlay: GraphicOverlay
+        graphicOverlayView: GraphicOverlayView
     ) {
         latestFrame = data
         latestFrameMetaData = frameMetadata
         if (processingFrame == null && processingFrameMetaData == null) {
-            processLatestFrame(graphicOverlay)
+            processLatestFrame(graphicOverlayView)
         }
     }
 
     @Synchronized
-    private fun processLatestFrame(graphicOverlay: GraphicOverlay) {
+    private fun processLatestFrame(graphicOverlayView: GraphicOverlayView) {
         processingFrame = latestFrame
         processingFrameMetaData = latestFrameMetaData
         latestFrame = null
@@ -65,9 +65,9 @@ abstract class FrameProcessorBase<T> : FrameProcessor {
             this@FrameProcessorBase.onSuccess(
                 CameraInputInfo(frame, frameMetaData),
                 results,
-                graphicOverlay
+                graphicOverlayView
             )
-            processLatestFrame(graphicOverlay)
+            processLatestFrame(graphicOverlayView)
 
         }.addOnFailureListener(executor
         ) {
@@ -87,7 +87,7 @@ abstract class FrameProcessorBase<T> : FrameProcessor {
     protected abstract fun onSuccess(
         inputInfo: InputInfo,
         results: T,
-        graphicOverlay: GraphicOverlay
+        graphicOverlayView: GraphicOverlayView
     )
 
     protected abstract fun onFailure(e: Exception)

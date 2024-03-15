@@ -19,7 +19,7 @@ import com.ndhunju.barcodescanner.barcodedetection.FailureBarcodeGraphic
 import com.ndhunju.barcodescanner.barcodedetection.LoadingBarcodeGraphic
 import com.ndhunju.barcodescanner.barcodedetection.SuccessBarcodeGraphic
 import com.ndhunju.barcodescanner.camera.CameraSource
-import com.ndhunju.barcodescanner.camera.GraphicOverlay
+import com.ndhunju.barcodescanner.camera.GraphicOverlayView
 import com.ndhunju.barcodescanner.camera.WorkflowModel
 import com.ndhunju.barcodescanner.camera.WorkflowModel.WorkflowState
 import com.ndhunju.barcodescanner.isPermissionGranted
@@ -32,7 +32,7 @@ import java.io.IOException
 abstract class BarcodeScannerActivity : FragmentActivity() {
 
     // Private Variables
-    private var graphicOverlay: GraphicOverlay? = null
+    private var graphicOverlayView: GraphicOverlayView? = null
     private lateinit var workflowModel: WorkflowModel
     private var currentWorkflowState = WorkflowState.NOT_STARTED
 
@@ -57,9 +57,9 @@ abstract class BarcodeScannerActivity : FragmentActivity() {
         }
     }
 
-    private fun onGraphicLayerInitialized(graphicOverlay: GraphicOverlay) {
-        this.graphicOverlay = graphicOverlay
-        setUpWorkflowModel(graphicOverlay)
+    private fun onGraphicLayerInitialized(graphicOverlayView: GraphicOverlayView) {
+        this.graphicOverlayView = graphicOverlayView
+        setUpWorkflowModel(graphicOverlayView)
         setWorkflowState(WorkflowState.DETECTING)
     }
 
@@ -111,12 +111,12 @@ abstract class BarcodeScannerActivity : FragmentActivity() {
         workflowModel.setWorkflowState(state)
     }
 
-    private fun startCameraPreview(graphicOverlay: GraphicOverlay) {
+    private fun startCameraPreview(graphicOverlayView: GraphicOverlayView) {
         if (workflowModel.isCameraLive.not()) {
             try {
-                graphicOverlay.clear()
-                workflowModel.cameraSource = (CameraSource(graphicOverlay).apply {
-                    setFrameProcessor(BarcodeFrameProcessor(graphicOverlay, workflowModel))
+                graphicOverlayView.clear()
+                workflowModel.cameraSource = (CameraSource(graphicOverlayView).apply {
+                    setFrameProcessor(BarcodeFrameProcessor(graphicOverlayView, workflowModel))
                 })
                 workflowModel.isCameraLive = true
                 uiState.setPromptText(null)
@@ -138,7 +138,7 @@ abstract class BarcodeScannerActivity : FragmentActivity() {
         }
     }
 
-    private fun setUpWorkflowModel(graphicOverlay: GraphicOverlay) {
+    private fun setUpWorkflowModel(graphicOverlayView: GraphicOverlayView) {
         // Observes the workflow state changes, if happens,
         // update the overlay view indicators and camera preview state.
         workflowModel.workflowState.observe(this, Observer { workflowState ->
@@ -150,12 +150,12 @@ abstract class BarcodeScannerActivity : FragmentActivity() {
             Log.d(TAG, "Current workflow state: ${currentWorkflowState.name}")
 
             when (workflowState) {
-                WorkflowState.DETECTING -> { startCameraPreview(graphicOverlay) }
+                WorkflowState.DETECTING -> { startCameraPreview(graphicOverlayView) }
                 // It becomes CONFIRMING when Barcode is not centered
                 WorkflowState.CONFIRMING -> {
                     workflowModel.uiStateFlow.value
                         .setPromptText(getString(R.string.barcode_prompt_move_camera_closer))
-                    startCameraPreview(graphicOverlay)
+                    startCameraPreview(graphicOverlayView)
                 }
                 WorkflowState.DETECTED -> { stopCameraPreview() }
                 else -> {
@@ -176,28 +176,28 @@ abstract class BarcodeScannerActivity : FragmentActivity() {
             repeatCount = ValueAnimator.INFINITE
             duration = 2000
             addUpdateListener {
-                graphicOverlay?.invalidate()
+                graphicOverlayView?.invalidate()
             }
         }
     }
 
     protected fun applyLoadingGraphics() {
         loadingAnimator.start()
-        graphicOverlay?.apply {
+        graphicOverlayView?.apply {
             clear()
             add(LoadingBarcodeGraphic(this, loadingAnimator))
         }
     }
 
     protected fun applySuccessGraphics() {
-        graphicOverlay?.apply {
+        graphicOverlayView?.apply {
             clear()
             add(SuccessBarcodeGraphic(this))
         }
     }
 
     protected fun applyFailureGraphics() {
-        graphicOverlay?.apply {
+        graphicOverlayView?.apply {
             clear()
             add(FailureBarcodeGraphic(this))
         }

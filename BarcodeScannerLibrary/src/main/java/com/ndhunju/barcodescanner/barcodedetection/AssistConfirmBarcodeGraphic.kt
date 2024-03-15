@@ -2,8 +2,8 @@ package com.ndhunju.barcodescanner.barcodedetection
 
 import android.graphics.Canvas
 import android.graphics.Path
-import com.ndhunju.barcodescanner.camera.GraphicOverlay
-import com.ndhunju.barcode.settings.Settings
+import com.ndhunju.barcodescanner.camera.GraphicOverlayView
+import com.ndhunju.barcodescanner.settings.Settings
 import com.google.mlkit.vision.barcode.common.Barcode
 
 /**
@@ -11,7 +11,7 @@ import com.google.mlkit.vision.barcode.common.Barcode
  * confirm the detected barcode.
  */
 internal class AssistConfirmBarcodeGraphic(
-    overlay: GraphicOverlay,
+    overlay: GraphicOverlayView,
     private val barcode: Barcode
     ) : BarcodeGraphicBase(overlay) {
 

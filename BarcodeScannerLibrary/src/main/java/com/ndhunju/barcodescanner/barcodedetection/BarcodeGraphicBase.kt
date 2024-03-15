@@ -9,12 +9,12 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
 import androidx.core.content.ContextCompat
-import com.ndhunju.barcodescanner.camera.GraphicOverlay
-import com.ndhunju.barcodescanner.camera.GraphicOverlay.Graphic
+import com.ndhunju.barcodescanner.camera.GraphicOverlayView
+import com.ndhunju.barcodescanner.camera.GraphicOverlayView.Graphic
 import com.ndhunju.barcodescanner.R
-import com.ndhunju.barcode.settings.Settings
+import com.ndhunju.barcodescanner.settings.Settings
 
-abstract class BarcodeGraphicBase(overlay: GraphicOverlay) : Graphic(overlay) {
+abstract class BarcodeGraphicBase(overlay: GraphicOverlayView) : Graphic(overlay) {
 
     private val defaultStrokeWidth = context.resources.getDimensionPixelOffset(
         R.dimen.barcode_reticle_stroke_width

@@ -10,7 +10,11 @@ interface FrameProcessor {
     /**
      * Processes the input frame with the underlying detector.
      */
-    fun process(data: ByteBuffer, frameMetadata: FrameMetadata, graphicOverlay: GraphicOverlay)
+    fun process(
+        data: ByteBuffer,
+        frameMetadata: FrameMetadata,
+        graphicOverlayView: GraphicOverlayView
+    )
 
     /**
      * Stops the underlying detector and release resources.

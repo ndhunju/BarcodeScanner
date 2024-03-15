@@ -7,7 +7,7 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 /**
  * Custom animator for the object or barcode reticle in live camera.
  */
-class CameraReticleAnimator(graphicOverlay: GraphicOverlay) {
+class CameraReticleAnimator(graphicOverlayView: GraphicOverlayView) {
 
     /**
      * Returns the scale value of ripple alpha ranges in [0, 1].
@@ -34,7 +34,7 @@ class CameraReticleAnimator(graphicOverlay: GraphicOverlay) {
             .setDuration(DURATION_RIPPLE_FADE_IN_MS)
         rippleFadeInAnimator.addUpdateListener { animation ->
             rippleAlphaScale = animation.animatedValue as Float
-            graphicOverlay.postInvalidate()
+            graphicOverlayView.postInvalidate()
         }
 
         val rippleFadeOutAnimator = ValueAnimator.ofFloat(1f, 0f)
@@ -42,7 +42,7 @@ class CameraReticleAnimator(graphicOverlay: GraphicOverlay) {
         rippleFadeOutAnimator.startDelay = START_DELAY_RIPPLE_FADE_OUT_MS
         rippleFadeOutAnimator.addUpdateListener { animation ->
             rippleAlphaScale = animation.animatedValue as Float
-            graphicOverlay.postInvalidate()
+            graphicOverlayView.postInvalidate()
         }
 
         val rippleExpandAnimator = ValueAnimator.ofFloat(0f, 1f)
@@ -51,7 +51,7 @@ class CameraReticleAnimator(graphicOverlay: GraphicOverlay) {
         rippleExpandAnimator.interpolator = FastOutSlowInInterpolator()
         rippleExpandAnimator.addUpdateListener { animation ->
             rippleSizeScale = animation.animatedValue as Float
-            graphicOverlay.postInvalidate()
+            graphicOverlayView.postInvalidate()
         }
 
         val rippleStrokeWidthShrinkAnimator =
@@ -61,7 +61,7 @@ class CameraReticleAnimator(graphicOverlay: GraphicOverlay) {
         rippleStrokeWidthShrinkAnimator.interpolator = FastOutSlowInInterpolator()
         rippleStrokeWidthShrinkAnimator.addUpdateListener { animation ->
             rippleStrokeWidthScale = animation.animatedValue as Float
-            graphicOverlay.postInvalidate()
+            graphicOverlayView.postInvalidate()
         }
 
         val fakeAnimatorForRestartDelay = ValueAnimator.ofInt(0, 0)

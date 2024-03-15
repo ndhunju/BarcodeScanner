@@ -22,14 +22,14 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.ndhunju.barcodescanner.camera.GraphicOverlay
+import com.ndhunju.barcodescanner.camera.GraphicOverlayView
 import kotlinx.coroutines.flow.StateFlow
 
 @Preview
 @Composable
 fun CameraPreviewGraphicOverlay(
     promptText: StateFlow<String?>? = null,
-    onGraphicLayerInitialized: ((GraphicOverlay) -> Unit)? = null,
+    onGraphicLayerInitialized: ((GraphicOverlayView) -> Unit)? = null,
     onClickGraphicOverlay: (() -> Unit)? = null,
     onClickCloseIcon: (() -> Unit)? = null,
 ) {
@@ -51,9 +51,9 @@ fun CameraPreviewGraphicOverlay(
                         }
                         .clickable { onClickGraphicOverlay?.invoke() },
                     factory = { context ->
-                        val graphicOverlay = GraphicOverlay(context)
-                        onGraphicLayerInitialized?.invoke(graphicOverlay)
-                        return@AndroidView graphicOverlay
+                        val graphicOverlayView = GraphicOverlayView(context)
+                        onGraphicLayerInitialized?.invoke(graphicOverlayView)
+                        return@AndroidView graphicOverlayView
                     },
                     update = {
                         it.postInvalidate()

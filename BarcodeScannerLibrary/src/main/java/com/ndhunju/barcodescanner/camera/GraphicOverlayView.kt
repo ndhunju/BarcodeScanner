@@ -23,7 +23,7 @@ import java.util.ArrayList
  * Associated [Graphic] items should use [.translateX] and [ ][.translateY] to convert to view
  * coordinate from the preview's coordinate.
  */
-class GraphicOverlay(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
+class GraphicOverlayView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
     private val lock = Any()
 
     private var previewWidth: Int = 0
@@ -35,9 +35,9 @@ class GraphicOverlay(context: Context, attrs: AttributeSet? = null) : View(conte
     /**
      * Base class for a custom graphics object to be rendered within the graphic overlay. Subclass
      * this and implement the [Graphic.draw] method to define the graphics element. Add
-     * instances to the overlay using [GraphicOverlay.add].
+     * instances to the overlay using [GraphicOverlayView.add].
      */
-    abstract class Graphic protected constructor(protected val overlay: GraphicOverlay) {
+    abstract class Graphic protected constructor(protected val overlay: GraphicOverlayView) {
         protected val context: Context = overlay.context
 
         /**

@@ -21,7 +21,7 @@ class CameraSourcePreview(context: Context, attrs: AttributeSet? = null) : Frame
         addView(this)
     }
 
-    private var graphicOverlay: GraphicOverlay? = null
+    private var graphicOverlayView: GraphicOverlayView? = null
     private var startRequested = false
     private var surfaceAvailable = false
     private var cameraSource: CameraSource? = null
@@ -29,7 +29,7 @@ class CameraSourcePreview(context: Context, attrs: AttributeSet? = null) : Frame
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        graphicOverlay = findViewById(R.id.camera_preview_graphic_overlay)
+        graphicOverlayView = findViewById(R.id.camera_preview_graphic_overlay)
     }
 
     @Throws(IOException::class)
@@ -52,7 +52,7 @@ class CameraSourcePreview(context: Context, attrs: AttributeSet? = null) : Frame
         if (startRequested && surfaceAvailable) {
             cameraSource?.start(surfaceView.holder)
             requestLayout()
-            graphicOverlay?.let { overlay ->
+            graphicOverlayView?.let { overlay ->
                 cameraSource?.let {
                     overlay.setCameraInfo(it)
                 }
