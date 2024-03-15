@@ -31,17 +31,15 @@ import java.io.IOException
  */
 abstract class BarcodeScannerActivity : FragmentActivity() {
 
-    // Variables
-    var graphicOverlay: GraphicOverlay? = null
-    private set
-    lateinit var workflowModel: WorkflowModel
-    private set
+    // Private Variables
+    private var graphicOverlay: GraphicOverlay? = null
+    private lateinit var workflowModel: WorkflowModel
+    private var currentWorkflowState = WorkflowState.NOT_STARTED
 
+    // Exposed Variables
     var uiState: UiState
         get() { return workflowModel.uiStateFlow.value }
         set(value) { workflowModel.updateUiState(value) }
-
-    private var currentWorkflowState: WorkflowState = WorkflowState.NOT_STARTED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +60,7 @@ abstract class BarcodeScannerActivity : FragmentActivity() {
     private fun onGraphicLayerInitialized(graphicOverlay: GraphicOverlay) {
         this.graphicOverlay = graphicOverlay
         setUpWorkflowModel(graphicOverlay)
-        workflowModel.setWorkflowState(WorkflowState.DETECTING)
+        setWorkflowState(WorkflowState.DETECTING)
     }
 
     override fun onResume() {
@@ -80,7 +78,6 @@ abstract class BarcodeScannerActivity : FragmentActivity() {
         workflowModel.markCameraFrozen()
         currentWorkflowState = WorkflowState.NOT_STARTED
     }
-
 
     override fun onPause() {
         super.onPause()
@@ -110,6 +107,10 @@ abstract class BarcodeScannerActivity : FragmentActivity() {
         }
     }
 
+    fun setWorkflowState(state: WorkflowState) {
+        workflowModel.setWorkflowState(state)
+    }
+
     private fun startCameraPreview(graphicOverlay: GraphicOverlay) {
         if (workflowModel.isCameraLive.not()) {
             try {
@@ -130,17 +131,14 @@ abstract class BarcodeScannerActivity : FragmentActivity() {
     }
 
     private fun stopCameraPreview() {
-
         if (workflowModel.isCameraLive) {
             workflowModel.markCameraFrozen()
             workflowModel.isFlashOn = false
             workflowModel.cameraSource = null
         }
-
     }
 
     private fun setUpWorkflowModel(graphicOverlay: GraphicOverlay) {
-
         // Observes the workflow state changes, if happens,
         // update the overlay view indicators and camera preview state.
         workflowModel.workflowState.observe(this, Observer { workflowState ->
@@ -165,7 +163,6 @@ abstract class BarcodeScannerActivity : FragmentActivity() {
                         .setPromptText(getString(R.string.activity_barcode_workflow_unknown_state))
                 }
             }
-
         })
 
         workflowModel.detectedBarcode.observe(this) { barcode ->
@@ -212,11 +209,15 @@ abstract class BarcodeScannerActivity : FragmentActivity() {
 
     protected open fun onBarcodeRawValue(rawValue: String) {
         // Show barcode's value on a snack bar
+        showSnackBar(rawValue)
+    }
+
+    fun showSnackBar(rawValue: String, duration: SnackbarDuration = SnackbarDuration.Short) {
         workflowModel.setSnackBarVisuals(object : SnackbarVisuals {
             override val actionLabel: String?
                 get() = null
             override val duration: SnackbarDuration
-                get() = SnackbarDuration.Short
+                get() = duration
             override val message: String
                 get() = rawValue
             override val withDismissAction: Boolean
