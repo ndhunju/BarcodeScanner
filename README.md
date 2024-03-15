@@ -7,15 +7,15 @@ Scroll horizontally to see more ➡️
 
 <table>
   <tr>
-    <th>Processing Screen</th>
-    <th>Scan Complete Screen</th>
+    <th width="256">Scanning State</th>
+    <th width="256">Scan Complete State</th>
   </tr>
   <tr>
-    <td><img src="graphics/screens/screen_processing.png" alt="screenshot of processing" width="256" height="569"></td>
-    <td><img src="graphics/screens/screen_scan_complete.png" alt="screenshot of scan complete" width="256" height="569"></td>
+    <td><img src="graphics/screens/screen_scanning.gif" alt="screenshot of scanning"></td>
+    <td><img src="graphics/screens/screen_scan_complete.gif" alt="screenshot of scan"></td>
   </tr>
   <tr>
-    <td width="256"><p>Processing Demo</p></td>
-    <td width="256"><p>Scan Complete Demo</p></td>
+    <td><p>Demo of the app actively scanning for barcode</p></td>
+    <td><p>Demo of the app when scanning is complete.</p></td>
   </tr>
 </table>
